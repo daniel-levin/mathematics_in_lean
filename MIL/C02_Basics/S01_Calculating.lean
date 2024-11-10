@@ -2,14 +2,11 @@ import MIL.Common
 import Mathlib.Data.Real.Basic
 -- An example.
 example (a b c : ℝ) : a * b * c = b * (a * c) := by
-  rw [mul_comm a b]
-  rw [mul_assoc b a c]
+  rw [mul_comm a b, mul_assoc b a c]
 
 -- Try these.
 example (a b c : ℝ) : c * b * a = b * (a * c) := by
-  rw [<- mul_comm b c]
-  rw [<- mul_comm c a]
-  rw [mul_assoc b c a]
+  rw [<- mul_comm b c, <- mul_comm c a, mul_assoc b c a]
 
 example (a b c : ℝ) : a * (b * c) = b * (a * c) := by
   rw [<- mul_assoc]
@@ -96,12 +93,11 @@ example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
 example : (a + b) * (a + b) = a * a + 2 * (a * b) + b * b :=
   calc
     (a + b) * (a + b) = a * a + b * a + (a * b + b * b) := by
-      sorry
+      rw [mul_add, add_mul, add_mul a b b]
     _ = a * a + (b * a + a * b) + b * b := by
-      sorry
+      rw [← add_assoc, add_assoc (a * a)]
     _ = a * a + 2 * (a * b) + b * b := by
-      sorry
-
+      rw [two_mul, mul_comm b a]
 end
 
 -- Try these. For the second, use the theorems listed underneath.
